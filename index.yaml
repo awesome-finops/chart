@@ -1,0 +1,17 @@
+apiVersion: v1
+entries:
+  apepipe-expire:
+  - apiVersion: v1
+    created: "2024-01-08T07:00:39.902684885Z"
+    description: Apepipe Expire Operator
+    digest: e5a2e41e8eca4e83344d1403263f200e51aa2b8720e975ef6dd415b79d8bfeff
+    maintainers:
+    - email: ahlforslee@gmail.com
+      name: ahlfors
+    name: apepipe-expire
+    sources:
+    - https://github.com/awesome-finops/chart
+    urls:
+    - https://github.com/awesome-finops/chart/releases/download/apepipe-expire-0.0.1/apepipe-expire-0.0.1.tgz
+    version: 0.0.1
+generated: "2024-01-08T07:00:39.902690726Z"
