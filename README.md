@@ -11,6 +11,12 @@ env:
 ```
 
 add annotations with "apepipe/expire", the resource will be deleted when the set duration reached after its creation.
+value unit example: 
+* 30s: 30 seconds
+* 1m: 1 minute
+* 1h: 1 hour
+* 1d: 1 day
+
 
 you can test by below pod:
 k apply -f my-pod.yaml
