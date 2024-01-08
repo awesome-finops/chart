@@ -1,0 +1,41 @@
+{{- if .Values.prometheusRule.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: apepipe-expire
+    {{- if .Values.prometheusRule.additionalLabels }}
+{{- toYaml .Values.prometheusRule.additionalLabels | nindent 4 }}
+    {{- end }}
+  name: apepipe-expire
+  namespace: {{ .Release.Namespace }}
+spec:
+  groups:
+  - name: apepipe-expire.rules
+    rules:
+    {{- if .Values.prometheusRule.builtInRules.reconcileErrors }}
+    - alert: ApepipeExpireReconcileErrors
+      expr: rate(controller_runtime_reconcile_errors_total{job="apepipe-expire"}[5m]) > 0.1
+      for: 10m
+      labels:
+        severity: warning-devops
+      annotations:
+        dashboard: apepipe-expire-operator
+        description: 'Errors while reconciling `{{`{{ $labels.controller }}`}}` controller of ApepipeExpire in `{{`{{ $labels.namespace }}`}}` Namespace.'
+        summary: ApepipeExpire reconcile is in bad shape.
+    {{- end }}
+    {{- if .Values.prometheusRule.builtInRules.down }}
+    - alert: ApepipeExpireDown
+      expr: absent(up{job="apepipe-expire"})
+      for: 10m
+      labels:
+        severity: warning-devops
+      annotations:
+        dashboard: apepipe-expire-operator
+        description: ApepipeExpire has disappeared from Prometheus target discovery.
+        summary: ApepipeExpire is down.
+    {{- end }}
+    {{- if .Values.prometheusRule.additionalRules }}
+    {{- toYaml .Values.prometheusRule.additionalRules | nindent 4 }}
+    {{- end }}
+{{- end }}

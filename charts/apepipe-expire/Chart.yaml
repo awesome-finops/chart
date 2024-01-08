@@ -1,0 +1,9 @@
+apiVersion: v1
+description: Apepipe Expire Operator
+name: apepipe-expire
+version: 0.0.1
+sources:
+  - https://github.com/awesome-finops/chart
+maintainers:
+  - name: ahlfors
+    email: ahlforslee@gmail.com
